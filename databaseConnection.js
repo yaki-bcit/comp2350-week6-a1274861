@@ -8,6 +8,7 @@ const dbConfigHeroku = {
 	password: "lfw5qnq569snodyu",
 	database: "jugv3m5awn9160ez",
 	multipleStatements: false,
+	namedPlaceholders: true,
 	reconnect: true
 };
 
@@ -16,7 +17,8 @@ const dbConfigLocal = {
 	user: "root",
 	password: "Password",
 	database: "lab_example",
-	multipleStatements: false
+	multipleStatements: false,
+	namedPlaceholders: true
 };
 
 if (is_heroku) {
