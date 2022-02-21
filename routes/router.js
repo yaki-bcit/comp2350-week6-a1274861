@@ -59,4 +59,37 @@ router.post('/addUser', (req, res) => {
 	});
 });
 
+router.get('/deleteUser', (req, res) => {
+	console.log("delete user");
+	database.getConnection(function (err, dbConnection) {
+		if (err) {
+			res.render('error', { message: 'Error connecting to MySQL' });
+			console.log("Error connecting to mysql");
+			console.log(err);
+		}
+		else {
+			console.log(req.query);
+			let userId = req.query.id;
+			if (userId) {
+				dbModel.deleteUser(userId, (err, result) => {
+					if (err) {
+						res.render('error', { message: 'Error writing to MySQL' });
+						console.log("Error writing to mysql");
+						console.log(err);
+					}
+					else { //success
+						res.redirect("/");
+						//Output the results of the query to the Heroku Logs
+						console.log(result);
+					}
+				});
+			}
+			else {
+				res.render('error', { message: 'Error on Delete' });
+			}
+			dbConnection.release();
+		}
+	});
+});
+
 module.exports = router;
